@@ -28,6 +28,16 @@ services:
       - WORDPRESS_DB_USER=wordpress
       - WORDPRESS_DB_PASSWORD=wordpress
       - WORDPRESS_DB_NAME=wordpress
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    depends_on: [db]
+    environment:
+      - ADMINER_DEFAULT_SERVER=db
+      - ADMINER_PLUGINS=tables-filter dump-php
+      - ADMINER_DESIGN=hever
+    ports:
+      - '8000:8080'
 volumes:
   db_data:
   wp_data:
